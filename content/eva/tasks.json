@@ -1,0 +1,26 @@
+{
+  "totalScore": 100,
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Read one book",
+      "category": "learn",
+      "desc": "Read at least one small boor or one article every day",
+      "img": "https://media.giphy.com/media/WoWm8YzFQJg5i/giphy.gif"
+    },
+    {
+      "id": 2,
+      "title": "Clean up toys",
+      "category": "helper",
+      "desc": "Keep your room clean!",
+      "img": "https://media.giphy.com/media/10zsjaH4g0GgmY/giphy.gif"
+    },
+    {
+      "id": 3,
+      "title": "Do math",
+      "category": "learn",
+      "desc": "Do math every day",
+      "img": "https://media.giphy.com/media/lvzdeWk12qjmM/giphy.gif"
+    }
+  ]
+}

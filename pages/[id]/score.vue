@@ -1,0 +1,9 @@
+<template>
+  <NuxtLayout>
+    <div>
+      <h3>Score</h3>
+      <button>
+      </button>
+    </div>
+  </NuxtLayout>
+</template>
