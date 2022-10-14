@@ -1,6 +1,6 @@
-# Content v2 Minimal Starter
+# Kids Score
 
-Look at the [Content documentation](https://content-v2.nuxtjs.org/) to learn more.
+Simple dashboard to track kids tasks
 
 ## Setup
 
