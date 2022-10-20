@@ -4,6 +4,6 @@ export default defineEventHandler(async (event) => {
 
     const data = await useStorage().getItem(`redis:tasks:${id}`)
     event.res.setHeader("Content-Type", "application/json")
-    console.debug("tasks", data)
+    // console.debug("tasks", data)
     return data
 })

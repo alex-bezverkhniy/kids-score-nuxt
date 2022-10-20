@@ -1,7 +1,8 @@
 const initialSope = {
     id: "eva",
-    totalScore: 0,
+    error: {},
     score: {
+        totalScore: 0,
         "2022-10-20": [
             {
                 taskId: 1,

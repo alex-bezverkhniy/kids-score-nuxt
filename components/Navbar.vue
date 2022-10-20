@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="toggle()"></v-app-bar-nav-icon>
       <v-toolbar-title>Kid's Score - {{ title }}</v-toolbar-title>
       <v-btn icon link href="/eva/score">
-        <v-avatar color="info" size="large"> 64 </v-avatar>
+        <v-avatar color="info" size="large"> {{ scope.score.totalScore }} </v-avatar>
       </v-btn>
     </v-app-bar>
 
@@ -78,6 +78,7 @@
 
 <script setup lang="ts">
 const title = useTitle();
+const scope = useScope();
 const drawer = ref(false);
 const toggle = () => (drawer.value = !drawer.value);
 </script>

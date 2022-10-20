@@ -4,7 +4,9 @@ useTitle().value = "My Tasks";
 let addScoreResp = {};
 
 const id = route.params.id;
-const { data: taskData } = await useFetch(`/api/${id}/tasks`);
+const scope = useScope();
+
+// const { data: taskData } = await useFetch(`/api/${id}/tasks`);
 // const { data } = await useAsyncData("home", () =>
 //   queryContent(`/${id}/tasks`).findOne()
 // );
@@ -22,13 +24,13 @@ const addScore = async (points: number, taskId: number) => {
 <template>
   <NuxtLayout>
     <h1>{{ id[0].toUpperCase() + id.slice(1) }}' Tasks</h1>
-
+    <!-- <pre>{{ scope }}</pre> -->
     <v-container fluid ma-0 pa-0>
       <v-row dense>
         <v-container>
           <v-row no-gutters>
             <v-col
-              v-for="card in taskData.tasks"
+              v-for="card in scope.tasks"
               :key="card.id"
               cols="12"
               sm="4"
