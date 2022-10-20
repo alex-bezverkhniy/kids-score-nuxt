@@ -1,10 +1,12 @@
 <template>
-    <div>
-        <div id="app">
-            <v-app id="inspire">
-                <Navbar />
-                <slot />
-            </v-app>
-        </div>
-    </div>
+    <v-app id="inspire">
+        <Navbar />
+        <v-main class="grey lighten-2">
+            <v-container>
+                <v-row>
+                    <slot />
+                </v-row>
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
