@@ -1,122 +1,66 @@
-<script setup>
+<script setup lang="ts">
 const route = useRoute();
+let addScoreResp = {};
 
 const id = route.params.id;
-const { data } = await useAsyncData("home", () =>
-  queryContent(`/${id}/tasks`).findOne()
-);
+const { data: taskData } = await useFetch(`/api/${id}/tasks`);
+// const { data } = await useAsyncData("home", () =>
+//   queryContent(`/${id}/tasks`).findOne()
+// );
 
-const addScore = () => {
-  console.log("addScore");
 
-  axios({
-    method: "post",
-    url: "/api/test",
-    data: JSON.stringify({ username: "some name", address: "some address" }),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+
+const addScore = async (points: number, taskId: number) => {
+  console.log(`addScore: ${points}`);
+  addScoreResp = await useFetch(`/api/${id}/add/${taskId}`, {
+    method: 'put',
+    body: { points }
   })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
   return false;
 };
 </script>
 
 <template>
   <NuxtLayout>
-    <section class="section">
-      <div class="container">
-        <h1 class="title">
-          {{ id[0].toUpperCase() + id.slice(1) }}' Tasks
-          <div class="control">
-            <div class="tags has-addons">
-              <span class="tag is-dark is-large">score</span>
-              <span class="tag is-primary is-large">{{ data.totalScore }}</span>
-            </div>
-          </div>
-        </h1>
+    <h1>{{ id[0].toUpperCase() + id.slice(1) }}' Tasks</h1>
+    <p>addScoreResp: {{ addScoreResp }}</p>
 
-        <div class="columns is-multiline">
-          <div
-            class="column is-one-third"
-            v-for="task in data.tasks"
-            :key="task.id"
-          >
-            <div class="card">
-              <div class="card-image">
-                <figure class="image is-4by3">
-                  <img v-bind:src="task.img" alt="Placeholder image" />
-                </figure>
-              </div>
+    <v-container fluid ma-0 pa-0>
+      <v-row dense>
 
-              <div class="card-content">
-                <p class="title">{{ task.title }}</p>
-                <p class="subtitle">{{ task.category }}</p>
-                <div class="media">
-                  <div class="media-left">
-                    <figure class="image is-48x48">
-                      <img src="~/assets/img/eva-princes-small.jpg" />
-                    </figure>
-                  </div>
-                  <div class="media-content">
-                    <p class="title is-4">Eva Bezverkhniy</p>
-                    <p class="subtitle is-6">@eva</p>
-                  </div>
-                </div>
+        <v-container>
+          <v-row no-gutters>
+            <v-col v-for="card in taskData.tasks" :key="card.id" cols="12" sm="4" class="pa-2">
+              <v-card max-width="344">
+                <v-img :src="card.img" class="white--text align-end"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px">
+                </v-img>
+                <v-card-title v-text="card.title"></v-card-title>
+                <v-card-subtitle v-text="card.category"></v-card-subtitle>
+                <v-card-text v-text="card.desc"></v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="success" tile @click="addScore(5, card.id)">
+                    <v-icon>mdi-star-face</v-icon>
+                    +5
+                  </v-btn>
 
-                <div class="content">
-                  {{ task.desc }}
-                </div>
-              </div>
+                  <v-btn color="success" tile>
+                    <v-icon>mdi-star-face</v-icon>+10
+                  </v-btn>
 
-              <footer class="card-footer">
-                <a class="card-footer-item" @click="addScore">
-                  <span class="icon-text">
-                    <span class="icon">
-                      <i class="fa-solid fa-ban"></i>
-                    </span>
-                    <span>+0</span>
-                  </span>
-                </a>
-                <a href="#" class="card-footer-item">
-                  <span class="icon-text">
-                    <span class="icon">
-                      <i class="fa-solid fa-star fa-beat"></i>
-                    </span>
-                    <span>+5</span>
-                  </span>
-                </a>
-                <a href="#" class="card-footer-item">
-                  <span class="icon-text">
-                    <span class="icon">
-                      <i class="fa-solid fa-star fa-beat fa-lg"></i>
-                    </span>
-                    <span>+10</span>
-                  </span>
-                </a>
-                <a href="#" class="card-footer-item">
-                  <span class="icon-text">
-                    <span class="icon">
-                      <i class="fa-solid fa-star fa-beat fa-xl"></i>
-                    </span>
-                    <span>+15</span>
-                  </span>
-                </a>
-              </footer>
-            </div>
-            <!-- card -->
-          </div>
-        </div>
-        <!-- columns -->
-      </div>
-    </section>
+                  <v-btn color="success" tile>
+                    <v-icon>mdi-star-face</v-icon>+15
+                  </v-btn>
+
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-row>
+    </v-container>
+
   </NuxtLayout>
 </template>
 
@@ -131,6 +75,7 @@ const addScore = () => {
   min-width: 320px;
   max-width: 400px;
 }
+
 .icon-text {
   font-size: 0.8rem;
 }

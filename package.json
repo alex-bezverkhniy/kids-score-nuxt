@@ -4,20 +4,17 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
     "@nuxt/content": "^2.1.1",
-    "nuxt": "^3.0.0-rc.11"
+    "nuxt": "3.0.0-rc.11"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "6.2.0",
-
-    "bulma": "0.9.4",
-    "sass": "1.55.0",
-    "spectre.css": "0.5.9"
-  },
-  "keywords": [],
-  "name": "kids-score-nuxt",
-  "description": ""
+    "@mdi/font": "^7.0.96",
+    "mdi": "^2.2.43",
+    "sass": "^1.55.0",
+    "vuetify": "^3.0.0-beta.13"
+  }
 }

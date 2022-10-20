@@ -1,6 +1,6 @@
-# Kids Score
+# Nuxt 3 Minimal Starter
 
-Simple dashboard to track kids tasks
+Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 
 ## Setup
 
@@ -39,4 +39,4 @@ Locally preview production build:
 npm run preview
 ```
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
+Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
