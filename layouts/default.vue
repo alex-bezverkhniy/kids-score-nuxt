@@ -1,8 +1,10 @@
 <template>
-  <main>
-    <NavMenu></NavMenu>
-    <section class="section">
-      <slot />
-    </section>
-  </main>
+    <div>
+        <div id="app">
+            <v-app id="inspire">
+                <Navbar />
+                <slot />
+            </v-app>
+        </div>
+    </div>
 </template>

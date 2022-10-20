@@ -1,3 +1,17 @@
+@base_url = http://192.168.1.23:3000
+@id = eva
+
+
+### Get all tasks by id
+
+GET {{base_url}}/api/{{id}}/tasks
+
+
+### Create all tasks by id
+
+POST {{base_url}}/api/{{id}}/tasks
+Content-Type: application/json
+
 {
   "totalScore": 100,
   "tasks": [
@@ -24,30 +38,40 @@
       "desc": "Do math every day",
       "img": "https://media.giphy.com/media/lvzdeWk12qjmM/giphy.gif",
       "flex": 6
-    },
+    }
+  ],
+  "score": [
     {
-      "id": 4,
-      "title": "Read one book",
-      "category": "learn",
-      "desc": "Read at least one small boor or one article every day",
-      "img": "https://media.giphy.com/media/WoWm8YzFQJg5i/giphy.gif",
-      "flex": 6
-    },
-    {
-      "id": 5,
-      "title": "Clean up toys",
-      "category": "helper",
-      "desc": "Keep your room clean!",
-      "img": "https://media.giphy.com/media/10zsjaH4g0GgmY/giphy.gif",
-      "flex": 6
-    },
-    {
-      "id": 6,
-      "title": "Do math",
-      "category": "learn",
-      "desc": "Do math every day",
-      "img": "https://media.giphy.com/media/lvzdeWk12qjmM/giphy.gif",
-      "flex": 6
+        "taskId": 1,
+        "points": 0
     }
   ]
+}
+
+
+### Add points to task
+
+PUT {{base_url}}/api/{{id}}/add/1
+Content-Type: application/json
+
+{
+    "points": 5
+}
+
+### Add points to task - 404 user data not found
+
+PUT {{base_url}}/api/test/add/100
+Content-Type: application/json
+
+{
+    "points": 5
+}
+
+### Add points to task - 404 task data not found
+
+PUT {{base_url}}/api/eva/add/100
+Content-Type: application/json
+
+{
+    "points": 5
 }
