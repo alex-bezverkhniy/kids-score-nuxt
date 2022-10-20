@@ -13,7 +13,6 @@ POST {{base_url}}/api/{{id}}/tasks
 Content-Type: application/json
 
 {
-  "totalScore": 100,
   "tasks": [
     {
       "id": 1,
@@ -40,12 +39,6 @@ Content-Type: application/json
       "flex": 6
     }
   ],
-  "score": [
-    {
-        "taskId": 1,
-        "points": 0
-    }
-  ]
 }
 
 
@@ -75,3 +68,36 @@ Content-Type: application/json
 {
     "points": 5
 }
+
+
+### Create score
+
+POST {{base_url}}/api/{{id}}/score
+Content-Type: application/json
+
+{
+ "totalScore": 0,
+ "score": {
+    "2022-10-20": [
+      {
+        "taskId": 1,
+        "points": 0,
+        "status": "not started"
+      },
+      {
+        "taskId": 2,
+        "points": 0,
+        "status": "not started"
+      },
+      {
+        "taskId": 3,
+        "points": 0,
+        "status": "not started"
+      }
+    ]
+ }
+}
+
+### Get score by id
+
+GET {{base_url}}/api/{{id}}/score
