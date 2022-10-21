@@ -4,7 +4,6 @@
   </div>
 </template>
 <script setup>
-import { onUpdated } from "vue";
 
 const id = "eva"; // TODO so far hardcoded. Need to be retrieved from session after login
 const scope = useScope();
@@ -45,8 +44,6 @@ await useFetch(`/api/${id}/goals`, {
     scope.value.error = response._data;
   },
 });
-
-onUpdated(() => { console.log('app updated') });
 
 </script>
 

@@ -1,20 +1,17 @@
 
-class ScoreItem {
+export class ScoreItem {
+    scoreKey: string
     taskId: number
     points: number
     status: string
 }
 
-type ScoreMap = {
-    [key: string]: ScoreItem
-}
-
-class ScoreData {
+export class ScoreData {
     totalScore: number
-    score: ScoreMap
+    data: ScoreItem[]
 }
 
-class TaskData {
+export class TaskData {
     id: number
     title: string
     category: string
@@ -22,7 +19,7 @@ class TaskData {
     img: string
 }
 
-class GoalData {
+export class GoalData {
     id: number
     title: string
     desc: string
@@ -30,12 +27,73 @@ class GoalData {
     imgUrl: string
 }
 
-class ScopeData {
+export class ScopeData {
     id: string;
     error: any;
     score: ScoreData
     tasks: TaskData[]
     goals: GoalData[]
+
+    constructor (init?: ScopeData) {
+        this.id = init.id
+        this.error = init.error
+        this.score = init.score
+        this.tasks = init.tasks
+        this.goals = init.goals
+    }
+
+    checkTaskIsComplete(scoreKey: string, taskId: number): boolean {
+        return this.getScoreItem(scoreKey, taskId)?.status === "done"
+    }
+
+    getScoreItem(scoreKey: string, taskId: number): ScoreItem {
+        console.log("getScoreItem", scoreKey, taskId);
+
+        this.score.data.forEach((v) => {
+            if (v.scoreKey == scoreKey && v.taskId == taskId) {
+                console.log(v.status);
+
+                return v
+            }
+        })
+        return null
+    }
+
+    updateScore(scoreKey: string, taskId: number, points: number) {
+        console.log("updateScore", scoreKey, taskId, points);
+        this.score.totalScore = 0
+        this.score.data.forEach((v) => {
+            if (v.scoreKey == scoreKey && v.taskId == taskId) {
+                v.points = points
+                v.status = points == 0 ? "not started" : "done"
+                return;
+            }
+            this.score.totalScore += v.points
+        });
+
+
+        console.log("payload: ", JSON.stringify(this.score))
+        useFetch(`/api/${this.id}/score`, {
+            method: "post",
+            body: JSON.stringify(this.score),
+            onRequest({ request, options }) { },
+            onRequestError({ request, options, error }) { },
+            onResponse({ request, response, options }) {
+                console.log("score updated")
+            },
+            onResponseError({ request, response, options }) {
+                console.log("score updat error", response._data)
+            },
+        });
+    }
+
+    getScoreKey(date?: Date): string {
+        if (date == null) {
+            date = new Date();
+        }
+        // YYYY-MM-DD
+        return date.toISOString().substring(0, 10)
+    }
 }
 
 const initialSope = JSON.parse(`{
@@ -43,23 +101,26 @@ const initialSope = JSON.parse(`{
     "error": {},
     "score": {
       "totalScore": 0,
-      "2022-10-20": [
+      "data":  [
         {
+          "scoreKey": "2022-10-21", 
           "taskId": 1,
           "points": 0,
           "status": "not started"
         },
         {
+          "scoreKey": "2022-10-20",
           "taskId": 2,
           "points": 0,
           "status": "not started"
         },
         {
+          "scoreKey": "2022-10-20",
           "taskId": 3,
           "points": 0,
           "status": "not started"
         }
-      ]
+      ]    
     },
     "tasks": [
       {
