@@ -11,12 +11,13 @@ const scope = useScope();
 //   queryContent(`/${id}/tasks`).findOne()
 // );
 
-const addScore = async (points: number, taskId: number) => {
+const addScore = (points: number, taskId: number) => {
   console.log(`addScore: ${points}`);
-  addScoreResp = await useFetch(`/api/${id}/add/${taskId}`, {
-    method: "put",
-    body: { points },
-  });
+  // addScoreResp = await useFetch(`/api/${id}/add/${taskId}`, {
+  //   method: "put",
+  //   body: { points },
+  // });
+  scope.value.score.totalScore += points;
   return false;
 };
 </script>
@@ -29,20 +30,10 @@ const addScore = async (points: number, taskId: number) => {
       <v-row dense>
         <v-container>
           <v-row no-gutters>
-            <v-col
-              v-for="card in scope.tasks"
-              :key="card.id"
-              cols="12"
-              sm="4"
-              class="pa-2"
-            >
+            <v-col v-for="card in scope.tasks" :key="card.id" cols="12" sm="4" class="pa-2">
               <v-card max-width="344">
-                <v-img
-                  :src="card.img"
-                  class="white--text align-end"
-                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                  height="200px"
-                >
+                <v-img :src="card.img" class="white--text align-end"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" height="200px">
                 </v-img>
                 <v-card-title v-text="card.title"></v-card-title>
                 <v-card-subtitle v-text="card.category"></v-card-subtitle>
@@ -54,9 +45,13 @@ const addScore = async (points: number, taskId: number) => {
                     +5
                   </v-btn>
 
-                  <v-btn color="success" tile> <v-icon>mdi-star-face</v-icon>+10 </v-btn>
+                  <v-btn color="success" tile>
+                    <v-icon>mdi-star-face</v-icon>+10
+                  </v-btn>
 
-                  <v-btn color="success" tile> <v-icon>mdi-star-face</v-icon>+15 </v-btn>
+                  <v-btn color="success" tile>
+                    <v-icon>mdi-star-face</v-icon>+15
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>

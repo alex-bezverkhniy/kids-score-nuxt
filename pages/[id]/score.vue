@@ -1,15 +1,14 @@
 <script setup>
-const route = useRoute();
+// const route = useRoute();
+// const id = route.params.id;
 
-const id = route.params.id;
-
-const { data: taskData } = await useFetch(`/api/${id}/tasks`);
 const scope = useScope();
+useTitle().value = "My Score";
 </script>
 
 <template>
   <NuxtLayout>
-    <h1>{{ id[0].toUpperCase() + id.slice(1) }}' Score</h1>
-    score: {{ scope.score.totalScore }}
+    <h1>{{ scope.id[0].toUpperCase() + scope.id.slice(1) }}' Score</h1>
+    <h2>score: {{ scope.score.totalScore }}</h2>
   </NuxtLayout>
 </template>
